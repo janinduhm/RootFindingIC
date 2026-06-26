@@ -123,6 +123,20 @@ The spec's literal loop condition was `while (|f(c)|>epsilon OR n<=Nmax)`
 point the first term still needs to be false). The corrected condition,
 used here, is `AND`.
 
+## Waveforms
+
+GTKWave traces from `sim/tb_waveform_demo.v` (`omega=1.0`), showing the
+bisection bracket (`a_reg`/`b_reg`) and midpoint (`c_reg`) narrowing each
+iteration, tracked against `n_reg`:
+
+![Bisection converging](docs/waveform_early.png)
+
+By the end of the run, `c_reg` has narrowed to `0x08E80`/`0x08F00`
+(~0.556–0.559) and `x_hat` has latched `0x08E80` = `0.556641` — matching
+the testbench's independently hand-computed expected root of `0.5571`:
+
+![Final convergence](docs/waveform_converged.png)
+
 ## Bugs found by simulation, not just code review
 
 Three real bugs were caught only once the design was actually simulated
