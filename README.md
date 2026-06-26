@@ -93,18 +93,18 @@ stateDiagram-v2
     [*] --> IDLE
     IDLE --> INIT: Start
     INIT --> EVAL_LN1: a=0, b=1, c=0.5, n=1
-    EVAL_LN1 --> EVAL_LN2: issue ln(c) [gives ln(c+1) internally]
+    EVAL_LN1 --> EVAL_LN2: issue ln of c, gives ln(c+1) internally
     EVAL_LN2 --> EVAL_MUL: ln Horner evaluation in progress
-    EVAL_MUL --> EVAL_ADD2: issue omega * ln(c+1)
-    EVAL_ADD2 --> EVAL_ADD3: capture r3=omega*ln(c+1); issue c-1
-    EVAL_ADD3 --> UPDATE1: issue r3+(c-1) = f(c)
-    UPDATE1 --> UPDATE2: branch a/b on sign(f(c)); n++; issue |f(c)|>epsilon
-    UPDATE2 --> RECOMPUTE1: continue (|f(c)|>epsilon AND n<=Nmax)
-    UPDATE2 --> ERROR_ST: stop
-    RECOMPUTE1 --> RECOMPUTE2: issue a+b
-    RECOMPUTE2 --> RECOMPUTE3: issue (a+b)/2
+    EVAL_MUL --> EVAL_ADD2: issue omega times ln(c+1)
+    EVAL_ADD2 --> EVAL_ADD3: capture r3, issue c-1
+    EVAL_ADD3 --> UPDATE1: issue r3 plus (c-1), result is f(c)
+    UPDATE1 --> UPDATE2: branch a or b on sign of f(c), n plus 1, issue compare
+    UPDATE2 --> RECOMPUTE1: continue looping
+    UPDATE2 --> ERROR_ST: stop looping
+    RECOMPUTE1 --> RECOMPUTE2: issue a plus b
+    RECOMPUTE2 --> RECOMPUTE3: issue divide by 2
     RECOMPUTE3 --> EVAL_LN1: capture new c, loop back
-    ERROR_ST --> DONE: x_hat=c, error=(not accurate)
+    ERROR_ST --> DONE: set x_hat and error
     DONE --> IDLE: Ready=1
 ```
 
