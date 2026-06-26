@@ -1,16 +1,2 @@
-# Vivado generated logs and journals
-*.jou
-*.log
-*.str
-*.mif
-.Xil/
-
-# Vivado project caches and build outputs
-**/*.cache/
-**/*.hw/
-**/*.ip_user_files/
-**/*.runs/
-**/*.sim/
-
-# Binary documents
-*.docx
+*.vvp
+*.vcd
